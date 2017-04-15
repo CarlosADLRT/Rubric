@@ -1,16 +1,19 @@
 package com.example.carlos.rubric;
 
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.raizlabs.android.dbflow.config.FlowConfig;
+import com.raizlabs.android.dbflow.config.FlowManager;
 
 public class MainActivity extends AppCompatActivity implements Asignaturas.OnFragmentInteractionListener, Rubricas.OnFragmentInteractionListener, Reportes.OnFragmentInteractionListener {
     private DrawerLayout mDrawer;
@@ -18,8 +21,12 @@ public class MainActivity extends AppCompatActivity implements Asignaturas.OnFra
     private NavigationView nvDrawer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //DataBase
+        FlowManager.init(new FlowConfig.Builder(this).build());
+
         // Set a Toolbar to replace the ActionBar.
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

@@ -1,18 +1,18 @@
 package com.example.carlos.rubric;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
+
+import com.raizlabs.android.dbflow.sql.language.Select;
 
 import java.util.ArrayList;
 
@@ -25,89 +25,53 @@ import java.util.ArrayList;
  */
 public class Asignaturas extends Fragment {
 
-    private ViewGroup layout;
-    private ScrollView scrollView;
-    ArrayList<RelativeLayout> relativeLayout=new ArrayList();
-    EditText text,text2;
-    CheckBox chek;
-    int id,tam=0,n,ii=1;
-    String var="",num="";
+    private static final String KEY_LAYOUT_MANAGER = "layoutManager";
+    protected ArrayList<Asignatura> mDataset = new ArrayList();
+    protected LayoutManagerType mCurrentLayoutManagerType;
+    protected RecyclerView mRecyclerView;
+    protected Adapter mAdapter;
+    protected RecyclerView.LayoutManager mLayoutManager;
+    protected FloatingActionButton floatingActionButton;
     private OnFragmentInteractionListener mListener;
-
     public Asignaturas() {
         // Required empty public constructor
 
-    }
-    @SuppressLint("InlinedApi")
-    private void addChild(int i) {
-        LayoutInflater inflater = LayoutInflater.from(getContext());
-        id = R.layout.cat;
-        RelativeLayout rl= (RelativeLayout) inflater.inflate(id, null, false);
-        relativeLayout.add(rl);
-        text= (EditText) rl.findViewById(R.id.editText);
-        text.setText("Asignatura "+(i));
-        layout.addView(rl);
-    }
-    public void remove(){
-        int i=0;
-        while(i<relativeLayout.size()) {
-            chek=(CheckBox) relativeLayout.get(i).findViewById(R.id.delet);
-            if (chek.isChecked()) {
-                layout.removeViewAt(i);
-                relativeLayout.remove(i);
-                i=0;
-            }else{
-                i++;
-            }
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View v = inflater.inflate(R.layout.fragment_asignaturas, container, false);
-        layout = (ViewGroup) v.findViewById(R.id.content);
-        scrollView = (ScrollView) v.findViewById(R.id.scrollView);
-        initUI(v);
-        return v;
+        View view = inflater.inflate(R.layout.fragment_asignaturas, container, false);
+        floatingActionButton = (FloatingActionButton) view.findViewById(R.id.fasignatura_fab);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), AddAsignatura.class);
+                startActivityForResult(intent, 0);
+            }
+        });
+        // Inflate the layout for this fragment
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.fasignaturas_recycler);
+        mLayoutManager = new LinearLayoutManager(getActivity());
+        mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
+        if (savedInstanceState != null) {
+            // Restore saved layout manager type.
+            mCurrentLayoutManagerType = (LayoutManagerType) savedInstanceState
+                    .getSerializable(KEY_LAYOUT_MANAGER);
+        }
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        mDataset = (ArrayList<Asignatura>) new Select().from(Asignatura.class).queryList();
+        mAdapter = new Adapter(mDataset);
+        // Set CustomAdapter as the adapter for RecyclerView.
+        mRecyclerView.setAdapter(mAdapter);
+        return view;
     }
 
-    private void initUI(View v) {
-        Button b1 = (Button) v.findViewById(R.id.add);
-        text2= (EditText) v.findViewById(R.id.tam);
-        b1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
-                num = text2.getText().toString();
-                if(num.equals("")){
-                    n=0;
-                }else{
-                    n=Integer.parseInt(num);
-                    tam=tam+n;
-                }
-                for(int i=0;i<n;i++) {
-                    addChild(ii);
-                    ii++;
-                }
-                // TODO Auto-generated method stub
-
-            }
-
-        });
-        Button b2 = (Button) v.findViewById(R.id.delet);
-        b2.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View arg0) {
-                //layout.removeViewAt(1);
-                remove();
-                // TODO Auto-generated method stub
-
-            }
-
-        });
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -132,6 +96,11 @@ public class Asignaturas extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    private enum LayoutManagerType {
+        GRID_LAYOUT_MANAGER,
+        LINEAR_LAYOUT_MANAGER
     }
 
     /**

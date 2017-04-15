@@ -1,14 +1,21 @@
 package com.example.carlos.rubric;
 
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
+
 /**
  * Created by carlos on 3/04/17.
  */
+@Table(database = AppDatabase.class)
+public class Asignatura extends BaseModel {
 
-public class Asignatura {
+    @PrimaryKey
     String Nombre;
 
-    public Asignatura(String nombre) {
-        Nombre = nombre;
+    public void Asignatura(String nombre) {
+        this.Nombre = nombre;
+
     }
 
     public String getNombre() {

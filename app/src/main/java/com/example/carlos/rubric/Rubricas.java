@@ -3,13 +3,14 @@ package com.example.carlos.rubric;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.raizlabs.android.dbflow.sql.language.Select;
 
 import java.util.ArrayList;
 
@@ -26,20 +27,12 @@ public class Rubricas extends Fragment {
     private static final String KEY_LAYOUT_MANAGER = "layoutManager";
     private static final int SPAN_COUNT = 2;
     private static final int DATASET_COUNT = 60;
-    private OnFragmentInteractionListener mListener;
     protected ArrayList<Asignatura> mDataset = new ArrayList();
     protected LayoutManagerType mCurrentLayoutManagerType;
-
-
-    private enum LayoutManagerType {
-        GRID_LAYOUT_MANAGER,
-        LINEAR_LAYOUT_MANAGER
-    }
-
     protected RecyclerView mRecyclerView;
-    protected Rubric mRubric;
+    protected Adapter mAdapter;
     protected RecyclerView.LayoutManager mLayoutManager;
-
+    private OnFragmentInteractionListener mListener;
     public Rubricas() {
         // Required empty public constructor
     }
@@ -63,10 +56,10 @@ public class Rubricas extends Fragment {
                     .getSerializable(KEY_LAYOUT_MANAGER);
         }
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mDataset.add(new Asignatura("Ingles"));
-        mRubric = new Rubric(mDataset);
+        mDataset = (ArrayList<Asignatura>) new Select().from(Asignatura.class).queryList();
+        mAdapter = new Adapter(mDataset);
         // Set CustomAdapter as the adapter for RecyclerView.
-        mRecyclerView.setAdapter(mRubric);
+        mRecyclerView.setAdapter(mAdapter);
 
         return rootView;
     }
@@ -95,7 +88,12 @@ public class Rubricas extends Fragment {
         mListener = null;
     }
 
-     /**
+    private enum LayoutManagerType {
+        GRID_LAYOUT_MANAGER,
+        LINEAR_LAYOUT_MANAGER
+    }
+
+    /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
