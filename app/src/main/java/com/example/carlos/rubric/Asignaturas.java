@@ -33,6 +33,8 @@ public class Asignaturas extends Fragment {
     protected RecyclerView.LayoutManager mLayoutManager;
     protected FloatingActionButton floatingActionButton;
     private OnFragmentInteractionListener mListener;
+
+    //Buenas
     public Asignaturas() {
         // Required empty public constructor
 
