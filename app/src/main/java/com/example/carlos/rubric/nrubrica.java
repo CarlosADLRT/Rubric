@@ -24,7 +24,7 @@ public class nrubrica extends AppCompatActivity {
     EditText text,text2,text3,text4,tm;
     CheckBox chek;
     int id,tam=0,n,ii=1;
-    String asg="",num="";
+    String asg="",num="",asig,cat,elem,niv;;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,7 @@ public class nrubrica extends AppCompatActivity {
         layout = (ViewGroup) findViewById(R.id.content);
         scrollView = (ScrollView) findViewById(R.id.scrollView);
         asg=getIntent().getStringExtra("asignatura");
+
 
     }
 
@@ -49,8 +50,6 @@ public class nrubrica extends AppCompatActivity {
         RelativeLayout rl= (RelativeLayout) inflater.inflate(id, null, false);
         text= (EditText) rl.findViewById(R.id.editText);
         text.setText("Categoria "+(i));
-        text2= (EditText) rl.findViewById(R.id.peso);
-        text2.setHint("X%");
         text3= (EditText) rl.findViewById(R.id.nelem);
         text3.setHint("Elem");
         relativeLayout.add(rl);
@@ -101,14 +100,18 @@ public class nrubrica extends AppCompatActivity {
         for (int i = 0; i < tam; i++){
             Intent in = new Intent(this, contenido.class);
             text = (EditText) relativeLayout.get(i).findViewById(R.id.editText);
-            text2 = (EditText) relativeLayout.get(i).findViewById(R.id.peso);
             text3 = (EditText) relativeLayout.get(i).findViewById(R.id.nelem);
+            elem=text3.getText().toString();
             in.putExtra("elementos", text3.getText().toString());
             in.putExtra("categoria",text.getText().toString());
             in.putExtra("niveles",text4.getText().toString());
-            in.putExtra("pesoc",text2.getText().toString());
             in.putExtra("asignatura",asg);
             intents.add(in);
+            Category categoria = new Category();
+            categoria.setAsignatura(asig);
+            categoria.setCategoria(cat);
+            categoria.setnE(Integer.parseInt(elem));
+            categoria.save();
             startActivityForResult(in, i);
         }
     }

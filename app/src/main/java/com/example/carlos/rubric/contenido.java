@@ -10,6 +10,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.raizlabs.android.dbflow.sql.language.Select;
@@ -24,6 +25,7 @@ public class contenido extends AppCompatActivity {
     ArrayList<RelativeLayout> relativeLayout=new ArrayList();
     ArrayList<Intent> intents=new ArrayList();
     EditText text,text2,text3,text4,tm;
+    TextView tv;
     CheckBox chek;
     int id,tam=0,n,ii=1;
     String var="",num="",asig,cat,peso,elem,niv;
@@ -39,6 +41,8 @@ public class contenido extends AppCompatActivity {
         elem=num;
         niv=var;
         cat=getIntent().getStringExtra("categoria");
+        tv=(TextView) findViewById(R.id.textView2);
+        tv.setText("Categoria: " + cat);
         peso=getIntent().getStringExtra("pesoc");
         asig=getIntent().getStringExtra("asignatura");
         List<Rubric> ru = (List<Rubric>) new Select(Rubric_Table.Asignatura).from(Rubric.class).where(Rubric_Table.Rubric.is(asig)).queryList();
@@ -80,15 +84,10 @@ public class contenido extends AppCompatActivity {
     }
 
     public void next(View view) {
-        Category categoria = new Category();
-        categoria.setAsignatura(asig);
-        categoria.setCategoria(cat);
-        categoria.setnE(Integer.parseInt(elem));
-        categoria.setPeso(Integer.parseInt(peso));
-        categoria.save();
         for (int i = 0; i < tam; i++){
             Intent in1 = new Intent(this, conenido2.class);
-            text4=(EditText) relativeLayout.get(i).findViewById(R.id.lvl);
+            text=(EditText) relativeLayout.get(i).findViewById(R.id.editText);
+            text4=(EditText) relativeLayout.get(i).findViewById(R.id.peso);
             in1.putExtra("asignatura",asig);
             in1.putExtra("pesoc",peso);
             in1.putExtra("categoria",cat);
@@ -96,6 +95,12 @@ public class contenido extends AppCompatActivity {
             in1.putExtra("niveles", var);
             in1.putExtra("name", text.getText().toString());
             intents.add(in1);
+            Elements elementos = new Elements();
+            elementos.setElemento(text.getText().toString());
+            elementos.setCategoria(cat);
+            elementos.setnN(Integer.parseInt(elem));
+            elementos.setPeso(Integer.parseInt(text4.getText().toString()));
+            elementos.save();
             startActivityForResult(in1, i);
         }
         finish();

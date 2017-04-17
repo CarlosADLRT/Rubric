@@ -20,8 +20,6 @@ public class Category extends BaseModel{
     String Asignatura;
     @Column
     int nE;
-    @Column
-    int peso;
 
     public String getCategoria() {
         return Categoria;
@@ -47,11 +45,4 @@ public class Category extends BaseModel{
         this.nE = nE;
     }
 
-    public int getPeso() {
-        return peso;
-    }
-
-    public void setPeso(int peso) {
-        this.peso = peso;
-    }
 }

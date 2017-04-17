@@ -40,6 +40,8 @@ public class conenido2 extends AppCompatActivity {
         cat=getIntent().getStringExtra("categoria");
         peso=getIntent().getStringExtra("pesoc");
         asig=getIntent().getStringExtra("asignatura");
+        tv=(TextView) findViewById(R.id.textView2);
+        tv.setText("Elemento: " + getIntent().getStringExtra("name"));
         tam=Integer.parseInt(var);
         for(int i=0;i<tam;i++) {
             addChild(ii);
@@ -75,12 +77,13 @@ public class conenido2 extends AppCompatActivity {
     }
 
     public void end(View view) {
-        Category categoria = new Category();
-        categoria.setAsignatura(asig);
-        categoria.setCategoria(cat);
-        categoria.setnE(Integer.parseInt(elem));
-        categoria.setPeso(Integer.parseInt(peso));
-        categoria.save();
+        for(int i=0;i<tam;i++) {
+            text= (EditText) relativeLayout.get(i).findViewById(R.id.editText);
+            Niveles nivel = new Niveles();
+            nivel.setElemento(getIntent().getStringExtra("name"));
+            nivel.setNivel(text.getText().toString());
+            nivel.save();
+        }
         finish();
     }
 

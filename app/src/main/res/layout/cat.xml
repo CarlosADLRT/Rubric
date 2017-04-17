@@ -23,25 +23,13 @@
         android:text="Eliminar" />
 
     <EditText
-        android:id="@+id/peso"
-        android:layout_width="50dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:ems="10"
-        android:inputType="number"
-        android:layout_below="@+id/editText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <EditText
         android:id="@+id/nelem"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/peso"
-        android:layout_marginLeft="17dp"
-        android:layout_marginStart="17dp"
-        android:layout_toEndOf="@+id/peso"
-        android:layout_toRightOf="@+id/peso"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/editText"
+        android:layout_marginTop="11dp"
         android:ems="10"
         android:inputType="number" />
 
