@@ -2,9 +2,9 @@ package com.example.carlos.rubric;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +17,14 @@ import java.util.ArrayList;
 
 public class nrubrica extends AppCompatActivity {
 
-    private ViewGroup layout;
-    private ScrollView scrollView;
     ArrayList<RelativeLayout> relativeLayout=new ArrayList();
     ArrayList<Intent> intents=new ArrayList();
     EditText text,text2,text3,text4,tm;
     CheckBox chek;
     int id,tam=0,n,ii=1;
-    String asg="",num="",asig,cat,elem,niv;;
+    String asg="",num="";
+    private ViewGroup layout;
+    private ScrollView scrollView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,6 @@ public class nrubrica extends AppCompatActivity {
         layout = (ViewGroup) findViewById(R.id.content);
         scrollView = (ScrollView) findViewById(R.id.scrollView);
         asg=getIntent().getStringExtra("asignatura");
-
 
     }
 
@@ -50,6 +49,8 @@ public class nrubrica extends AppCompatActivity {
         RelativeLayout rl= (RelativeLayout) inflater.inflate(id, null, false);
         text= (EditText) rl.findViewById(R.id.editText);
         text.setText("Categoria "+(i));
+        text2= (EditText) rl.findViewById(R.id.peso);
+        text2.setHint("X%");
         text3= (EditText) rl.findViewById(R.id.nelem);
         text3.setHint("Elem");
         relativeLayout.add(rl);
@@ -100,18 +101,14 @@ public class nrubrica extends AppCompatActivity {
         for (int i = 0; i < tam; i++){
             Intent in = new Intent(this, contenido.class);
             text = (EditText) relativeLayout.get(i).findViewById(R.id.editText);
+            text2 = (EditText) relativeLayout.get(i).findViewById(R.id.peso);
             text3 = (EditText) relativeLayout.get(i).findViewById(R.id.nelem);
-            elem=text3.getText().toString();
             in.putExtra("elementos", text3.getText().toString());
             in.putExtra("categoria",text.getText().toString());
             in.putExtra("niveles",text4.getText().toString());
+            in.putExtra("pesoc",text2.getText().toString());
             in.putExtra("asignatura",asg);
             intents.add(in);
-            Category categoria = new Category();
-            categoria.setAsignatura(asig);
-            categoria.setCategoria(cat);
-            categoria.setnE(Integer.parseInt(elem));
-            categoria.save();
             startActivityForResult(in, i);
         }
     }
@@ -120,4 +117,6 @@ public class nrubrica extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
     }
+
+
 }
