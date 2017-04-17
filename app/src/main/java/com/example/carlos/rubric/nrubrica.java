@@ -49,8 +49,6 @@ public class nrubrica extends AppCompatActivity {
         RelativeLayout rl= (RelativeLayout) inflater.inflate(id, null, false);
         text= (EditText) rl.findViewById(R.id.editText);
         text.setText("Categoria "+(i));
-        text2= (EditText) rl.findViewById(R.id.peso);
-        text2.setHint("X%");
         text3= (EditText) rl.findViewById(R.id.nelem);
         text3.setHint("Elem");
         relativeLayout.add(rl);
@@ -101,12 +99,10 @@ public class nrubrica extends AppCompatActivity {
         for (int i = 0; i < tam; i++){
             Intent in = new Intent(this, contenido.class);
             text = (EditText) relativeLayout.get(i).findViewById(R.id.editText);
-            text2 = (EditText) relativeLayout.get(i).findViewById(R.id.peso);
             text3 = (EditText) relativeLayout.get(i).findViewById(R.id.nelem);
             in.putExtra("elementos", text3.getText().toString());
             in.putExtra("categoria",text.getText().toString());
             in.putExtra("niveles",text4.getText().toString());
-            in.putExtra("pesoc",text2.getText().toString());
             in.putExtra("asignatura",asg);
             intents.add(in);
             startActivityForResult(in, i);
