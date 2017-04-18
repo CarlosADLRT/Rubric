@@ -115,6 +115,7 @@ public class nrubrica extends AppCompatActivity {
         asg=text2.getText().toString();
         Rubric rubrica = new Rubric();
         rubrica.setRubric(asg);
+        rubrica.setAsignatura(asg);
         rubrica.setCat(tam);
         rubrica.save();
         text4= (EditText) findViewById(R.id.lvl);
@@ -127,8 +128,14 @@ public class nrubrica extends AppCompatActivity {
             in.putExtra("niveles",text4.getText().toString());
             in.putExtra("asignatura",asg);
             intents.add(in);
+            Category categoria = new Category();
+            categoria.setCategoria(text.getText().toString());
+            categoria.setnE(Integer.parseInt(text4.getText().toString()));
+            categoria.setRubrica(asg);
+            categoria.save();
             startActivityForResult(in, i);
         }
+        finish();
     }
 
     @Override
