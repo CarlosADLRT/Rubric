@@ -45,8 +45,6 @@ public class contenido extends AppCompatActivity {
         tv.setText("Categoria: " + cat);
         peso=getIntent().getStringExtra("pesoc");
         asig=getIntent().getStringExtra("asignatura");
-        List<Rubric> ru = (List<Rubric>) new Select(Rubric_Table.Asignatura).from(Rubric.class).where(Rubric_Table.Rubric.is(asig)).queryList();
-        //Toast.makeText(this,"Nota: "+nota, Toast.LENGTH_LONG).show();
         tam=Integer.parseInt(num);
         for(int i=0;i<tam;i++) {
             addChild(ii);

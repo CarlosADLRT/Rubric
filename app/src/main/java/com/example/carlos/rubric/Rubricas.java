@@ -57,7 +57,7 @@ public class Rubricas extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent detail = new Intent(getContext(),nrubrica.class);
-                detail.putExtra("asignatura","Rubrica Global");
+                detail.putExtra("Nueva",true);
                 startActivity(detail);
             }
         });

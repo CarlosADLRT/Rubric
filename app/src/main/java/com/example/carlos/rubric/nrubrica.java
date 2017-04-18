@@ -12,8 +12,12 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.Toast;
+
+import com.raizlabs.android.dbflow.sql.language.Select;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class nrubrica extends AppCompatActivity {
 
@@ -25,6 +29,7 @@ public class nrubrica extends AppCompatActivity {
     String asg="",num="";
     private ViewGroup layout;
     private ScrollView scrollView;
+    boolean sw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,8 +37,18 @@ public class nrubrica extends AppCompatActivity {
         setContentView(R.layout.nrubrica);
         layout = (ViewGroup) findViewById(R.id.content);
         scrollView = (ScrollView) findViewById(R.id.scrollView);
-        asg=getIntent().getStringExtra("asignatura");
-
+        text2=(EditText)findViewById(R.id.name);
+        if(!sw){
+            asg=getIntent().getStringExtra("rubrica");
+            List<Rubric> ru = new Select().from(Rubric.class).where(Rubric_Table.Rubric.is(asg)).queryList();
+            for (Rubric rub : ru) {
+                tam=rub.cat;
+                text2.setText(rub.Rubric);
+                crea(tam);
+            }
+        }else{
+            Toast.makeText(this, "No ", Toast.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -68,6 +83,12 @@ public class nrubrica extends AppCompatActivity {
             }
         }
     }
+    public void crea(int n){
+        for(int i=0;i<n;i++) {
+            addChild(ii);
+            ii++;
+        }
+    }
     public void add(View view) {
         //Creamos el evento de agregar EditText segun la necesidad
         //Con el ciclo podemos crear n editText segun el usuario (con eso creamos los elementos
@@ -91,9 +112,10 @@ public class nrubrica extends AppCompatActivity {
     }
 
     public void next(View view) {
+        asg=text2.getText().toString();
         Rubric rubrica = new Rubric();
-        rubrica.setAsignatura(asg);
         rubrica.setRubric(asg);
+        rubrica.setCat(tam);
         rubrica.save();
         text4= (EditText) findViewById(R.id.lvl);
         for (int i = 0; i < tam; i++){

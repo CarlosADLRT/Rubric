@@ -16,8 +16,19 @@ public class Rubric extends BaseModel{
     @Column
     String Asignatura;
 
+    @Column
+    int cat;
+
     public Rubric() {
 
+    }
+
+    public int getCat() {
+        return cat;
+    }
+
+    public void setCat(int cat) {
+        this.cat = cat;
     }
 
     public String getRubric() {
@@ -36,8 +47,4 @@ public class Rubric extends BaseModel{
         Asignatura = asignatura;
     }
 
-    @Override
-    public String toString() {
-        return Rubric;
-    }
 }
