@@ -14,12 +14,30 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
  */
 @Table(database = AppDatabase.class)
 public class Category extends BaseModel{
-    @PrimaryKey
+    @PrimaryKey(autoincrement = true)
+    int id;
+    @Column
     String Categoria;
     @Column
-    String Asignatura;
+    String Rubrica;
     @Column
     int nE;
+
+    public String getRubrica() {
+        return Rubrica;
+    }
+
+    public void setRubrica(String rubrica) {
+        Rubrica = rubrica;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getCategoria() {
         return Categoria;
@@ -27,14 +45,6 @@ public class Category extends BaseModel{
 
     public void setCategoria(String categoria) {
         Categoria = categoria;
-    }
-
-    public String getAsignatura() {
-        return Asignatura;
-    }
-
-    public void setAsignatura(String asignatura) {
-        Asignatura = asignatura;
     }
 
     public int getnE() {

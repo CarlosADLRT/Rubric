@@ -10,7 +10,9 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
  */
 @Table(database = AppDatabase.class)
 public class Elements extends BaseModel{
-    @PrimaryKey
+    @PrimaryKey(autoincrement = true)
+    int id;
+    @Column
     String Elemento;
     @Column
     String Categoria;
@@ -18,6 +20,14 @@ public class Elements extends BaseModel{
     int nN;
     @Column
     int peso;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getElemento() {
         return Elemento;

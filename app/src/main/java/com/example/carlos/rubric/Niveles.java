@@ -9,7 +9,9 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
  */
 @Table(database = AppDatabase.class)
 public class Niveles extends BaseModel{
-    @PrimaryKey
+    @PrimaryKey(autoincrement = true)
+    int id;
+    @Column
     String Nivel;
     @Column
     String Elemento;
