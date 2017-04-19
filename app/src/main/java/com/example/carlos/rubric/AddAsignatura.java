@@ -24,7 +24,6 @@ public class AddAsignatura extends AppCompatActivity {
                 asignatura.setNombre(mEditText.getText().toString());
                 asignatura.save();
                 finish();
-
             }
         });
     }

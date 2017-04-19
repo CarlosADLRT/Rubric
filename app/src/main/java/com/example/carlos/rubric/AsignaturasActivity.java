@@ -33,7 +33,7 @@ public class AsignaturasActivity extends AppCompatActivity implements AdapterEva
         setSupportActionBar(toolbar);
         // Inflate the layout for this fragment
         mRecyclerView = (RecyclerView) findViewById(R.id.activity_asignaturas_recycler);
-        mDataset = new Select().from(Evaluacion.class).queryList();
+        mDataset = new Select().from(Evaluacion.class).where(Evaluacion_Table.Asignatura.is(title)).queryList();
         mAdapter = new AdapterEvaluacion(mDataset);
         mAdapter.setRecyclerClickListner(this);
         // Set CustomAdapter as the adapter for RecyclerView.
@@ -50,7 +50,9 @@ public class AsignaturasActivity extends AppCompatActivity implements AdapterEva
                 startActivityForResult(intent, 0);
                 break;
             case R.id.activity_asignaturas_button_addExamen:
-                startActivityForResult(new Intent(this, AddEvaluacionActivity.class), 0);
+                Intent intent2 = new Intent(this, AddEvaluacionActivity.class);
+                intent2.putExtra("Asignatura", toolbar.getTitle().toString());
+                startActivityForResult(intent2, 0);
                 break;
             default:
 

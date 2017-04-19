@@ -47,6 +47,7 @@ public class AddEvaluacionActivity extends AppCompatActivity {
                     String a = spinner.getSelectedItem().toString();
                     Evaluacion evaluacion = new Evaluacion();
                     evaluacion.setRubrica(a);
+                    evaluacion.setAsignatura(getIntent().getStringExtra("Asignatura"));
                     evaluacion.save();
                     finish();
                 }

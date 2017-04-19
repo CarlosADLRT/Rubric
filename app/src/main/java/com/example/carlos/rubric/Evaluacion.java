@@ -14,6 +14,8 @@ public class Evaluacion extends BaseModel {
     int number;
     @Column
     String Rubrica;
+    @Column
+    String Asignatura;
 
     public Evaluacion( String rubrica) {
         Rubrica = rubrica;
@@ -23,6 +25,21 @@ public class Evaluacion extends BaseModel {
 
     }
 
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public String getAsignatura() {
+        return Asignatura;
+    }
+
+    public void setAsignatura(String asignatura) {
+        Asignatura = asignatura;
+    }
 
     public String getRubrica() {
         return Rubrica;
