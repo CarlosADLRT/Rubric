@@ -46,6 +46,16 @@ public class nrubrica extends AppCompatActivity {
                 text2.setText(rub.Rubric);
                 crea(tam);
             }
+            int ix=0;
+            List<Category> c = new Select().from(Category.class).where(Category_Table.Rubrica.is(asg)).queryList();
+            for (Category ca : c) {
+                text=(EditText) relativeLayout.get(ix).findViewById(R.id.editText);
+                text.setText(ca.Categoria);
+                text4=(EditText) relativeLayout.get(ix).findViewById(R.id.nelem);
+                text4.setText(""+ca.nE);
+                ix++;
+            }
+
         }else{
             Toast.makeText(this, "Vacio", Toast.LENGTH_LONG).show();
         }
@@ -130,7 +140,7 @@ public class nrubrica extends AppCompatActivity {
             intents.add(in);
             Category categoria = new Category();
             categoria.setCategoria(text.getText().toString());
-            categoria.setnE(Integer.parseInt(text4.getText().toString()));
+            categoria.setnE(Integer.parseInt(text3.getText().toString()));
             categoria.setRubrica(asg);
             categoria.save();
             startActivityForResult(in, i);
