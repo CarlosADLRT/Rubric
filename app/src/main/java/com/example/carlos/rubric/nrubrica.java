@@ -56,7 +56,7 @@ public class nrubrica extends AppCompatActivity {
                 tam=rub.cat;
                 text3.setText(""+tam);
                 text4.setText(""+rub.lvl);
-                Toast.makeText(this, text4.getText().toString(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(this, text4.getText().toString(), Toast.LENGTH_LONG).show();
                 text2.setText(""+rub.Rubric);
                 text2.setEnabled(false);
                 crea(tam);

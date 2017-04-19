@@ -72,7 +72,6 @@ public class AsignaturasActivity extends AppCompatActivity implements AdapterEva
     public void itemClick(View view, int position) {
         Intent intent = new Intent(this, EvaluacionActivity.class);
         TextView textView = (TextView) view.findViewById(R.id.row_textview);
-
         intent.putExtra("Nombre", toolbar.getTitle().toString());
         startActivityForResult(intent, 0);
     }
