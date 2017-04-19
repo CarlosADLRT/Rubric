@@ -42,7 +42,7 @@ public class AdapterEvaluacion extends RecyclerView.Adapter<AdapterEvaluacion.Vi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.mTextView.setText(this.data.get(position).getNumber());
+        holder.mTextView.setText(this.data.get(position).getRubrica());
 
     }
 

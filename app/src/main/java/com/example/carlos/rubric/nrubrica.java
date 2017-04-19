@@ -8,12 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.Toast;
 
+import com.raizlabs.android.dbflow.sql.language.Delete;
 import com.raizlabs.android.dbflow.sql.language.Select;
 
 import java.util.ArrayList;
@@ -25,7 +27,8 @@ public class nrubrica extends AppCompatActivity {
     ArrayList<Intent> intents=new ArrayList();
     EditText text,text2,text3,text4,tm;
     CheckBox chek;
-    int id,tam=0,n,ii=1;
+    Button add,del;
+    int id,tam=0,n,ii=1,lvl=0;
     String asg="",num="",s="";
     private ViewGroup layout;
     private ScrollView scrollView;
@@ -37,13 +40,25 @@ public class nrubrica extends AppCompatActivity {
         layout = (ViewGroup) findViewById(R.id.content);
         scrollView = (ScrollView) findViewById(R.id.scrollView);
         text2=(EditText)findViewById(R.id.name);
+        text3=(EditText)findViewById(R.id.tam);
+        text4=(EditText)findViewById(R.id.lvl);
+        add=(Button)findViewById(R.id.add);
+        del=(Button)findViewById(R.id.delet);
         s=getIntent().getStringExtra("nueva");
         if(s.equals("No")){
+            text3.setEnabled(false);
+            text4.setEnabled(false);
+            add.setEnabled(false);
+            del.setEnabled(false);
             asg=getIntent().getStringExtra("rubrica");
             List<Rubric> ru = new Select().from(Rubric.class).where(Rubric_Table.Rubric.is(asg)).queryList();
             for (Rubric rub : ru) {
                 tam=rub.cat;
-                text2.setText(rub.Rubric);
+                text3.setText(""+tam);
+                text4.setText(""+rub.lvl);
+                Toast.makeText(this, text4.getText().toString(), Toast.LENGTH_LONG).show();
+                text2.setText(""+rub.Rubric);
+                text2.setEnabled(false);
                 crea(tam);
             }
             int ix=0;
@@ -92,6 +107,7 @@ public class nrubrica extends AppCompatActivity {
                 i++;
             }
         }
+        text3.setText(""+tam);
     }
     public void crea(int n){
         for(int i=0;i<n;i++) {
@@ -127,6 +143,7 @@ public class nrubrica extends AppCompatActivity {
         rubrica.setRubric(asg);
         rubrica.setAsignatura(asg);
         rubrica.setCat(tam);
+        rubrica.setLvl(Integer.parseInt(text4.getText().toString()));
         rubrica.save();
         text4= (EditText) findViewById(R.id.lvl);
         for (int i = 0; i < tam; i++){

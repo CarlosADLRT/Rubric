@@ -17,7 +17,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddAsignatura" />
-        <activity android:name=".nrubrica" />
+        <activity android:name=".nrubrica"
+            android:windowSoftInputMode="adjustPan"/>
         <activity android:name=".contenido" />
         <activity android:name=".conenido2" />
         <activity

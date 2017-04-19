@@ -10,13 +10,12 @@ import com.raizlabs.android.dbflow.structure.BaseModel;
  */
 @Table(database = AppDatabase.class)
 public class Evaluacion extends BaseModel {
-    @PrimaryKey
-    String number;
+    @PrimaryKey(autoincrement = true)
+    int number;
     @Column
     String Rubrica;
 
-    public Evaluacion(String number, String rubrica) {
-        this.number = number;
+    public Evaluacion( String rubrica) {
         Rubrica = rubrica;
     }
 
@@ -24,13 +23,6 @@ public class Evaluacion extends BaseModel {
 
     }
 
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
 
     public String getRubrica() {
         return Rubrica;
@@ -42,7 +34,7 @@ public class Evaluacion extends BaseModel {
 
     @Override
     public String toString() {
-        return number;
+        return Rubrica;
     }
 }
 
