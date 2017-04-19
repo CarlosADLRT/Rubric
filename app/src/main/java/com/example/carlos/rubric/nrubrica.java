@@ -26,10 +26,9 @@ public class nrubrica extends AppCompatActivity {
     EditText text,text2,text3,text4,tm;
     CheckBox chek;
     int id,tam=0,n,ii=1;
-    String asg="",num="";
+    String asg="",num="",s="";
     private ViewGroup layout;
     private ScrollView scrollView;
-    boolean sw;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +37,8 @@ public class nrubrica extends AppCompatActivity {
         layout = (ViewGroup) findViewById(R.id.content);
         scrollView = (ScrollView) findViewById(R.id.scrollView);
         text2=(EditText)findViewById(R.id.name);
-        if(!sw){
+        s=getIntent().getStringExtra("nueva");
+        if(s.equals("No")){
             asg=getIntent().getStringExtra("rubrica");
             List<Rubric> ru = new Select().from(Rubric.class).where(Rubric_Table.Rubric.is(asg)).queryList();
             for (Rubric rub : ru) {
@@ -47,7 +47,7 @@ public class nrubrica extends AppCompatActivity {
                 crea(tam);
             }
         }else{
-            Toast.makeText(this, "No ", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Vacio", Toast.LENGTH_LONG).show();
         }
     }
 

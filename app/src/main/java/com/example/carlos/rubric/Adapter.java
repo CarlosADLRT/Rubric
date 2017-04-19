@@ -77,7 +77,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> {
                     context=itemView.getContext();
                     Intent detail = new Intent(context.getApplicationContext(),nrubrica.class);
                     detail.putExtra("rubrica",mTextView.getText().toString());
-                    detail.putExtra("Nueva",false);
                     context.startActivity(detail);
                     // TODO Auto-generated method stub
                 }
