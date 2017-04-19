@@ -71,8 +71,6 @@ public class nrubrica extends AppCompatActivity {
                 ix++;
             }
 
-        }else{
-            Toast.makeText(this, "Vacio", Toast.LENGTH_LONG).show();
         }
     }
 
